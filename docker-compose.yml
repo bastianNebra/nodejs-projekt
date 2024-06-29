@@ -1,0 +1,39 @@
+version: '3.0'
+
+services:
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    
+    volumes:
+      - ./frontend:/home/node/frontend/
+    ports:
+      - "4200:4200"
+
+    environment:
+      - NODE_ENV=development
+    networks: 
+      - fullstack_node_app
+
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/home/node/backend/
+      - /usr/src/app/node_modules/
+    ports:
+    - "3000:3000"
+
+    environment:
+      - NODE_ENV=development
+    networks:
+      - fullstack_node_app
+    
+  
+
+networks:
+  fullstack_node_app:
